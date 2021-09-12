@@ -1,13 +1,13 @@
-import Header from "../../components/Header";
-import styles from "../../styles/Inventory.module.css"
+import Header from "../components/Header";
+import styles from "../styles/Inventory.module.css"
 import {ToastContainer} from "react-toastify";
-import Dialog from "../../components/global/Dialog";
+import Dialog from "../components/global/Dialog";
 import React, {useEffect, useState} from "react";
-import {ProgressLoader} from "../../components/global/ProgressLaoder";
-import {getTableColumns, PaginatedTable} from "../../helpers/TableFunctions";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {salesSelector} from "../../features/sales/selectors";
-import {fetchSales} from "../../features/sales/actions";
+import {ProgressLoader} from "../components/global/ProgressLaoder";
+import {getTableColumns, PaginatedTable} from "../helpers/TableFunctions";
+import {useAppDispatch, useAppSelector} from "../app/hooks";
+import {salesSelector} from "../features/sales/selectors";
+import {fetchSales} from "../features/sales/actions";
 
 export default function SalesHome () {
     const [sale, setSale] = useState({});

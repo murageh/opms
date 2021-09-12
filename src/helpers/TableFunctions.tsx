@@ -17,6 +17,10 @@ export function getTableColumns(type: string) {
                 Header: "Salary",
                 accessor: "salary",
             },
+            {
+                Header: "Employee since",
+                accessor: "date_joined",
+            },
         ]
         : type === "sales"
             ? [
@@ -52,16 +56,16 @@ export function getTableColumns(type: string) {
                         accessor: "type",
                     },
                     {
-                        Header: "Name",
-                        accessor: "name",
-                    },
-                    {
                         Header: "Courtesy of",
                         accessor: "courtesy",
                     },
                     {
                         Header: "Date",
-                        accessor: "date",
+                        accessor: "datetime",
+                    },
+                    {
+                        Header: "Additional info",
+                        accessor: "additional_info",
                     },
                 ]
                 : type === "items" || type === "inventory"

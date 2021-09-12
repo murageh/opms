@@ -18,6 +18,7 @@ a {
 :root{
   --background-color: #fafafa;
   --main-color: #2b5e4c;
+  --main-color-light: #2b5e4caa;
   --selection-color: #2b5e4c;
 }
 

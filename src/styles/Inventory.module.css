@@ -1,9 +1,11 @@
 .main {
-    padding: 10px;
+
 }
 
 .header {
     padding: 10px;
+    background: var(--main-color);
+    color: #fff;
 }
 
 .header h1, .header h2, .header h3, .header h4,.header h5 {
@@ -15,6 +17,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    background: var(--main-color-light);
 }
 
 .top_row h2 {

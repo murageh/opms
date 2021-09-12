@@ -2,6 +2,10 @@ import PageLayout from "../layouts/PageLayout";
 import styles from '../styles/Home.module.css'
 import React from "react";
 
+export function refreshPage() {
+    window.location.reload();
+}
+
 const Home = () => {
     // const dispatch = useAppDispatch();
     // const count = useAppSelector(selectCount);

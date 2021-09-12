@@ -4,21 +4,25 @@ import {useDispatch} from "react-redux";
 import TextInput from "./TextInput";
 import {addItem, fetchInventory} from "../../features/inventory/actions";
 import {addSale, fetchSales} from "../../features/sales/actions";
+import {refreshPage} from "../../pages";
+import {addActivity, fetchActivities} from "../../features/activity/actions";
+import {errorToaster} from "../../helpers/Toaster";
+import {addEmployee, employeeReducer} from "../../features/employees";
 
 const Dialog = ({
                     onClose, actionText, title, reRender, type,
-                    initialUser = {}, initialActivity = {},
+                    initialEmployee = {}, initialActivity = {},
                     initialItem = {}, initialSale = {},
                     setLoading
                 }) => {
-    const [user, setUser] = useState(initialUser);
+    const [employee, setEmployee] = useState(initialEmployee);
     const [activity, setActivity] = useState(initialActivity);
     const [item, setItem] = useState(initialItem);
     const [sale, setSale] = useState(initialSale);
     const dispatch = useDispatch();
 
-    const editUserField = (field) => {
-        setUser({...user, ...field});
+    const editEmployeeField = (field) => {
+        setEmployee({...employee, ...field});
     };
 
     const editActivityField = (field) => {
@@ -41,12 +45,15 @@ const Dialog = ({
         console.log(type)
         if (type === "inventory" || type === "items"){
             dispatch(addItem(item));
-            dispatch(fetchInventory());
         }else if (type === "sale" || type === "sales"){
             dispatch(addSale(sale));
-            dispatch(fetchSales());
+        }else if (type === "activity" || type === "activities"){
+            dispatch(addActivity(activity));
+        }else if (type === "employee" || type === "employees"){
+            dispatch(addEmployee(employee));
+        }else {
+            errorToaster("Couldn't find operation to perform.")
         }
-
     }
 
     const onSubmit = (event) => {
@@ -72,8 +79,8 @@ const Dialog = ({
                     {
                         type === "employee" || type === "employees" ?
                             <EmployeeEditor
-                                editUserField={editUserField}
-                                user={user}
+                                editUserField={editEmployeeField}
+                                user={employee}
                                 onSubmit={onSubmit}
                             />
                             : type === "activity" || type === "activities" ?
@@ -196,23 +203,23 @@ const ActivityEditor = ({editActivityField, activity, onSubmit}) => {
                 label={"Type"}
                 initialValue={activity.type ?? ""}
                 placeholder={"Item type"}
-                onChange={(e) => editItemField({type: e.target.value})}
+                onChange={(e) => editActivityField({type: e.target.value})}
             />
 
             <TextInput
                 label={"Date and time"}
-                type={"datetime"}
+                type={"datetime-local"}
                 initialValue={activity.datetime ?? ""}
                 placeholder={"Date and time"}
-                onChange={(e) => editItemField({datetime: e.target.value})}
+                onChange={(e) => editActivityField({datetime: e.target.value})}
             />
 
             <TextInput
-                label={"Courtesy of"}
+                label={"Task completed by"}
                 type={"text"}
                 initialValue={activity.courtesy ?? ""}
                 placeholder={"Employee responsible"}
-                onChange={(e) => editItemField({courtesy: e.target.value})}
+                onChange={(e) => editActivityField({courtesy: e.target.value})}
             />
 
             <TextInput
@@ -220,7 +227,7 @@ const ActivityEditor = ({editActivityField, activity, onSubmit}) => {
                 type={"text"}
                 initialValue={activity.additional_details ?? ""}
                 placeholder={"Additional details"}
-                onChange={(e) => editItemField({additional_details: e.target.value})}
+                onChange={(e) => editActivityField({additional_details: e.target.value})}
             />
 
         </div>
