@@ -10,6 +10,7 @@ import {salesSelector} from "../features/sales/selectors";
 import {fetchSales} from "../features/sales/actions";
 import {activitySelector} from "../features/activity/selectors";
 import {fetchActivities} from "../features/activity/actions";
+import Link from "next/link";
 
 export default function ActivityHome () {
     const [activity, setActivity] = useState({});
@@ -62,7 +63,7 @@ export default function ActivityHome () {
                 <ToastContainer/>
 
                 <div className={styles.top_row}>
-                    <h2>Farm activities</h2>
+                    <h2><Link href={"/"}>Home</Link> • Farm activities</h2>
                     <button className={styles.add_button} onClick={editActivity}>Add activity</button>
                 </div>
                 <div className={styles.inventory_list}>

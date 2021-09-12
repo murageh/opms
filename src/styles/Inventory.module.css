@@ -3,6 +3,7 @@
 }
 
 .header {
+    width: 100%;
     padding: 10px;
     background: var(--main-color);
     color: #fff;
@@ -22,11 +23,18 @@
 
 .top_row h2 {
     margin: 0 auto 0 0;
+    color: darkslategrey;
+}
+
+.top_row a:hover {
+    text-decoration: underline;
 }
 
 .top_row .add_button {
     border-radius: 5px;
+    -webkit-transition: all .1s;
     transition: all .1s;
+    padding: 5px 10px;
 }
 
 .top_row .add_button:hover {
@@ -35,7 +43,7 @@
 }
 
 .inventory_list, .top_row {
-    padding: 10px 0;
+    padding: 10px;
 }
 
 .inventory_list {

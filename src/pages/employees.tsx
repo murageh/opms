@@ -9,6 +9,7 @@ import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {salesSelector} from "../features/sales/selectors";
 import {fetchSales} from "../features/sales/actions";
 import {employeeSelector, fetchEmployees} from "../features/employees";
+import Link from "next/link";
 
 export default function EmployeesHome () {
     const [employee, setEmployee] = useState({});
@@ -61,7 +62,7 @@ export default function EmployeesHome () {
                 <ToastContainer/>
 
                 <div className={styles.top_row}>
-                    <h2>Farm employees</h2>
+                    <h2><Link href={"/"}>Home</Link> • Farm employees</h2>
                     <button className={styles.add_button} onClick={editEmployee}>Add employee</button>
                 </div>
                 <div className={styles.inventory_list}>

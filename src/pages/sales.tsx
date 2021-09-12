@@ -8,6 +8,7 @@ import {getTableColumns, PaginatedTable} from "../helpers/TableFunctions";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {salesSelector} from "../features/sales/selectors";
 import {fetchSales} from "../features/sales/actions";
+import Link from "next/link";
 
 export default function SalesHome () {
     const [sale, setSale] = useState({});
@@ -60,7 +61,7 @@ export default function SalesHome () {
                 <ToastContainer/>
 
                 <div className={styles.top_row}>
-                    <h2>Sales</h2>
+                    <h2><Link href={"/"}>Home</Link> • Sales</h2>
                     <button className={styles.add_button} onClick={editSale}>Add sale</button>
                 </div>
                 <div className={styles.inventory_list}>

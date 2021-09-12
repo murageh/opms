@@ -1,16 +1,13 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
 .main {
-  padding: 5rem 0;
-  flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,22 +57,12 @@
   font-size: 1.5rem;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
 .grid {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
-  margin-top: 3rem;
 }
 
 .card {
@@ -93,19 +80,32 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: var(--main-color);
+  border-color: var(--main-color);
 }
 
 .card h2 {
+  margin: 0 0 0 0;
+  font-size: 2.5rem;
+}
+
+.card h4, .card h5 {
   margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+}
+
+.card h4 {
+  font-size: 1rem;
 }
 
 .card p {
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
+}
+
+.card a:hover {
+  /*color: #0243de;*/
+  text-decoration: underline;
 }
 
 .logo {

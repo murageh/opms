@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Header from "../components/Header";
 import styles from "../styles/Inventory.module.css"
 import {ToastContainer} from "react-toastify";
@@ -31,9 +32,6 @@ export default function InventoryHome () {
         setData(inventory);
     }, [inventory]);
 
-    console.log("inventory", inventory);
-    console.log("data", data);
-
     const editItem = () => {
         setShouldShowDialog(true);
     }
@@ -60,7 +58,7 @@ export default function InventoryHome () {
                 <ToastContainer/>
 
                 <div className={styles.top_row}>
-                    <h2>Inventory</h2>
+                    <h2><Link href={"/"}>Home</Link> • Inventory</h2>
                     <button className={styles.add_button} onClick={editItem}>Add item</button>
                 </div>
                 <div className={styles.inventory_list}>
