@@ -1,0 +1,141 @@
+/** FULL-SCREEN LOADER ***/
+
+.full-screen-loader-container {
+    position: absolute;
+    padding: 20px;
+    left: 50%;
+    margin-left: -50px;
+    top: 50%;
+    margin-top: -50px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 0 4px 1px #5555;
+    z-index: 10;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.full-screen-loader-container h4 {
+    margin: 0;
+}
+
+/************* POPUP DIALOG **************/
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(43, 94, 76, .70);;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog {
+    max-width: 400px;
+    width: 75%;
+    max-height: 85%;
+    background: #fcfcfc;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 4px 1px #0243de77;
+    overflow: auto;
+}
+
+.diag-special {
+    max-width: 60%;
+    width: 60%;
+    max-height: 85%;
+}
+
+.editor {
+}
+
+.dialog > p {
+    color: #0243de;
+    padding: 10px;
+    font-weight: bold;
+    /*margin: 10px 0;*/
+}
+
+.button-bar {
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.button-bar button {
+    margin-left: 10px;
+    background-color: #0243de;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0;
+    color: white;
+}
+
+.button-bar button:hover {
+    background-color: var(--selection-color);
+}
+
+.nav-button:disabled {
+    background-color: rgba(49, 130, 206, 0.8);
+    opacity: 0;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 0 5px 0 5px;
+    box-shadow: 0 0 4px 1px #0243de77;
+    color: #101010;
+}
+
+.input-row input,
+.input-row select,
+.editor input {
+    border: none;
+    outline: none;
+    width: 70%;
+    background: transparent;
+    color: #101010;
+    padding: 10px;
+}
+
+.input-row input:disabled {
+    font-style: italic;
+    color: gray;
+}
+
+.input-row select {
+    border: 1px solid mediumturquoise;
+}
+
+.input-row label {
+    width: 30%;
+    padding: 10px;
+    font-size: 15px;
+    color: #0243de;
+    border-right: solid 1px mediumturquoise;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: flex-start;
+}
+
+.input-row label span {
+    font-style: normal;
+    font-size: 14px;
+    color: #101010;
+}
+
+.editor label {
+    color: #0243de;
+    padding: 5px;
+}
