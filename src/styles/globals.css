@@ -357,3 +357,14 @@ tbody {
   color: #0243de;
   padding: 5px;
 }
+
+
+
+/***********/
+
+.loading-indicator {
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  font-weight: normal;
+}

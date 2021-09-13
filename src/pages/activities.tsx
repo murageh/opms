@@ -65,7 +65,7 @@ export default function ActivityHome() {
                     <h2><Link href={"/"}>Home</Link> • Farm activities</h2>
                     <button className={styles.add_button} onClick={editActivity}>Add activity</button>
                     <button className={styles.add_button} onClick={() => deleteRecord(type, deleteRow, dispatch)}
-                            disabled={typeof deleteRow?.id === 'undefined'}>Delete activity
+                            disabled={typeof deleteRow?.id === 'undefined'}>Delete selected activity
                     </button>
                     <button className={styles.add_button} onClick={() => generatePDF(type, data)}>Export activity data</button>
                 </div>

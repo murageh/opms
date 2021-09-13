@@ -1,7 +1,6 @@
 //@ts-nocheck
 import React from "react";
 import {useDispatch} from "react-redux";
-import TextInput from "./TextInput";
 
 const ImageViewer = ({
                     onClose, title, type="wider",

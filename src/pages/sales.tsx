@@ -84,7 +84,7 @@ export default function SalesHome () {
                     <h2><Link href={"/"}>Home</Link> • Sales</h2>
                     <button className={styles.add_button} onClick={editSale}>Add sale</button>
                     <button className={styles.add_button} onClick={() => deleteRecord(type, deleteRow, dispatch)}
-                            disabled={typeof deleteRow?.id === 'undefined'}>Delete sale
+                            disabled={typeof deleteRow?.id === 'undefined'}>Delete selected sale
                     </button>
                     <button className={styles.add_button} onClick={() => generatePDF(type, data)}>Export sales data</button>
                 </div>

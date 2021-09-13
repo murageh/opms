@@ -92,5 +92,5 @@ export default function EmployeesHome() {
                 </div>
             </div>
         </>
-    )
+    );
 }

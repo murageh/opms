@@ -3,12 +3,10 @@ import {GlobalFilter} from "../components/GlobalFilter";
 import BottomNavBar from "../components/BottomNavBar";
 import {useAppDispatch} from "../app/hooks";
 import {useState} from "react";
-import {deleteEmployee} from "../features/employees";
-import {deleteActivity} from "../features/activity/actions";
-import {deleteSale} from "../features/sales/actions";
 import {Checkbox} from "../components/global/CheckBox";
 
-export function getTableColumns(type: string, displayImage = (sale) => {}) {
+export function getTableColumns(type: string, displayImage = (sale) => {
+}) {
     return type === "employees"
         ? [
             {
@@ -129,38 +127,12 @@ export function getTableColumns(type: string, displayImage = (sale) => {}) {
                     ];
 }
 
-export function PaginatedTable({columns, data, type, setDeleteRow, }) {
+export function PaginatedTable({columns, data, type, setDeleteRow,}) {
     const dispatch = useAppDispatch();
     const [selectedRow, setSelectedRow] = useState("none selected");
 
     const getSelectedRow = (selectedFlatRow) => {
         return selectedFlatRow.original.name;
-    };
-
-    const deleteRow = (selectedFlatRows) => {
-        let name = "none selected";
-        let id = String(NaN);
-
-        // if the array is not empty
-        if (selectedFlatRows.length > 0) {
-            // currently does not support multi-select
-            // thus array contains only one  item - index 0
-            id = getSelectedRow(selectedFlatRows[0]);
-            name = getSelectedRow(selectedFlatRows[1]);
-            if (window.confirm("Do you want to delete " + name + "?")) {
-                if (type === "employees") {
-                    dispatch(deleteEmployee(id))
-                } else {
-                    if (type === "activities") {
-                        dispatch(deleteActivity(id));
-                    } else {
-                        if (type === "sales") {
-                            dispatch(deleteSale(id));
-                        }
-                    }
-                }
-            }
-        } else return;
     };
 
     // console.log("received ", data);
@@ -184,7 +156,7 @@ export function PaginatedTable({columns, data, type, setDeleteRow, }) {
         prepareRow,
         toggleAllRowsSelected,
         selectedFlatRows,
-        state: { selectedRowIds },
+        state: {selectedRowIds},
     } = useTable(
         {
             columns,
@@ -280,6 +252,17 @@ export function PaginatedTable({columns, data, type, setDeleteRow, }) {
                         })}
                         </tbody>
                     </table>
+
+                    {data.length < 1 ? (
+                        <div className={"loading-container"}>
+                            <h4 className={"loading-indicator"}>
+                                {`I couldn't find any ${type} on the server. If you're confident that everything's okay then don't fret Add a new one to make this interface more interesting.`}
+                            </h4>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
                 </div>
 
                 <BottomNavBar

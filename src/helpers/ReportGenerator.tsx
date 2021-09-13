@@ -4,7 +4,7 @@ import "jspdf-autotable";
 // Date Fns is used to format the dates we receive
 // from our API call
 import {format} from "date-fns";
-import {successToaster} from "./Toaster";
+import {errorToaster, successToaster} from "./Toaster";
 
 // define a generatePDF function that accepts a tickets argument
 const generatePDF = (type, data) => {
@@ -109,6 +109,11 @@ const generatePDF = (type, data) => {
     let pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth()
     let text = doc.splitTextToSize(commonText, pageWidth - 35, {})
     doc.text(text, 14, 40)
+
+    if (tableRows.length < 1) {
+        errorToaster("There's no data. Add some data first, before trying to export.")
+        return;
+    }
 
     // startY is basically margin-top
     doc.autoTable(tableColumn, tableRows, {startY: 50, showHead: 'firstPage',});

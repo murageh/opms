@@ -65,7 +65,7 @@ export default function InventoryHome () {
                     <h2><Link href={"/"}>Home</Link> • Inventory</h2>
                     <button className={styles.add_button} onClick={editItem}>Add item</button>
                     <button className={styles.add_button} onClick={() => deleteRecord(type, deleteRow, dispatch)}
-                            disabled={typeof deleteRow?.id === 'undefined'}>Delete item
+                            disabled={typeof deleteRow?.id === 'undefined'}>Delete selected item
                     </button>
                     <button className={styles.add_button} onClick={() => generatePDF(type, data)}>Export inventory data</button>
                 </div>

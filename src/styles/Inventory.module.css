@@ -40,6 +40,13 @@
     color: darkslategrey;
 }
 
+/*.top_row h2 a {*/
+/*    font-size: 1rem;*/
+/*    font-weight: normal;*/
+/*    text-decoration: underline;*/
+/*    margin: 2px 8px 0;*/
+/*}*/
+
 .top_row a:hover {
     text-decoration: underline;
 }
