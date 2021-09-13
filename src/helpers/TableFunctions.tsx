@@ -256,7 +256,7 @@ export function PaginatedTable({columns, data, type, setDeleteRow,}) {
                     {data.length < 1 ? (
                         <div className={"loading-container"}>
                             <h4 className={"loading-indicator"}>
-                                {`I couldn't find any ${type} on the server. If you're confident that everything's okay then don't fret Add a new one to make this interface more interesting.`}
+                                {`I couldn't find any ${type} on the server. If you're confident that everything's okay then don't fret. Add a new one to make this interface more interesting.`}
                             </h4>
                         </div>
                     ) : (

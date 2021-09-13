@@ -72,7 +72,7 @@ export default function InventoryHome () {
                 <div className={styles.inventory_list}>
                     <PaginatedTable
                         columns={columns}
-                        type={type}
+                        type={"items"}
                         data={data} // table data
                         setDeleteRow={setDeleteRow}
                     />

@@ -66,7 +66,8 @@
 }
 
 .top_row .add_button:hover {
-    background: #0243de;
+    background: var(--main-color);
+    border-color: var(--main-color-shadow);
     color: #fafafa;
 }
 
