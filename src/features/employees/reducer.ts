@@ -2,6 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {addEmployee, deleteEmployee, Employee, fetchEmployees} from "./actions";
 import {errorToaster, successToaster} from "../../helpers/Toaster";
 import {refreshPage} from "../../pages";
+import {addError, deleteError, fetchError} from "../inventory/reducer";
 
 type CounterState = {
     count: number,
@@ -28,12 +29,12 @@ export const employeeReducer = createReducer(initialState, builder => {
         .addCase(fetchEmployees.fulfilled, (state, {payload}) => {
             state.pending = false;
             console.log(payload)
-            state.employees = payload.data;
+            state.employees = payload.data ?? state.employees;
         })
         .addCase(fetchEmployees.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+           fetchError();
         })
         //addEmployee
         .addCase(addEmployee.pending, state => {
@@ -48,7 +49,7 @@ export const employeeReducer = createReducer(initialState, builder => {
         .addCase(addEmployee.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+            addError();
         })
         //deleteEmployee
         .addCase(deleteEmployee.pending, state => {
@@ -63,6 +64,6 @@ export const employeeReducer = createReducer(initialState, builder => {
         .addCase(deleteEmployee.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+            deleteError();
         });
 });

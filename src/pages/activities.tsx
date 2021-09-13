@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Header from "../components/Header";
 import styles from "../styles/Inventory.module.css"
 import {ToastContainer} from "react-toastify";
@@ -6,14 +7,15 @@ import React, {useEffect, useState} from "react";
 import {ProgressLoader} from "../components/global/ProgressLaoder";
 import {getTableColumns, PaginatedTable} from "../helpers/TableFunctions";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
-import {salesSelector} from "../features/sales/selectors";
-import {fetchSales} from "../features/sales/actions";
 import {activitySelector} from "../features/activity/selectors";
 import {fetchActivities} from "../features/activity/actions";
 import Link from "next/link";
+import {deleteRecord} from "./employees";
+import generatePDF from "../helpers/ReportGenerator";
 
-export default function ActivityHome () {
+export default function ActivityHome() {
     const [activity, setActivity] = useState({});
+    const [deleteRow, setDeleteRow] = useState({});
     const [loading, setLoading] = useState(false);
     const [shouldShowDialog, setShouldShowDialog] = useState(false);
     const type = "activities";
@@ -34,9 +36,6 @@ export default function ActivityHome () {
         setData(activities);
     }, [activities]);
 
-    console.log("sales", activities);
-    console.log("data", data);
-
     const editActivity = () => {
         setShouldShowDialog(true);
     }
@@ -45,7 +44,7 @@ export default function ActivityHome () {
 
     return (
         <>
-            <Header />
+            <Header/>
             <div className={styles.main}>
                 {(loading || pending) ? <ProgressLoader message={"Loading..."}/> : <></>}
                 {shouldShowDialog ?
@@ -65,13 +64,17 @@ export default function ActivityHome () {
                 <div className={styles.top_row}>
                     <h2><Link href={"/"}>Home</Link> • Farm activities</h2>
                     <button className={styles.add_button} onClick={editActivity}>Add activity</button>
+                    <button className={styles.add_button} onClick={() => deleteRecord(type, deleteRow, dispatch)}
+                            disabled={typeof deleteRow?.id === 'undefined'}>Delete activity
+                    </button>
+                    <button className={styles.add_button} onClick={() => generatePDF(type, data)}>Export activity data</button>
                 </div>
                 <div className={styles.inventory_list}>
                     <PaginatedTable
                         columns={columns}
                         type={type}
                         data={data} // table data
-                        setData={setData} // used to update table contents by the date filter
+                        setDeleteRow={setDeleteRow}
                     />
                 </div>
             </div>

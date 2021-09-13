@@ -1,10 +1,21 @@
 import {useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable,} from "react-table";
 import {GlobalFilter} from "../components/GlobalFilter";
 import BottomNavBar from "../components/BottomNavBar";
+import {useAppDispatch} from "../app/hooks";
+import {useState} from "react";
+import {deleteEmployee} from "../features/employees";
+import {deleteActivity} from "../features/activity/actions";
+import {deleteItem} from "../features/inventory/actions";
+import {deleteSale} from "../features/sales/actions";
+import {Checkbox} from "../components/global/CheckBox";
 
 export function getTableColumns(type: string) {
     return type === "employees"
         ? [
+            {
+                Header: "Id",
+                accessor: "id"
+            },
             {
                 Header: "Name",
                 accessor: "name"
@@ -24,6 +35,10 @@ export function getTableColumns(type: string) {
         ]
         : type === "sales"
             ? [
+                {
+                    Header: "Id",
+                    accessor: "id",
+                },
                 {
                     Header: "Type",
                     accessor: "type",
@@ -52,6 +67,10 @@ export function getTableColumns(type: string) {
             : type === "activities"
                 ? [
                     {
+                        Header: "Id",
+                        accessor: "id",
+                    },
+                    {
                         Header: "Type",
                         accessor: "type",
                     },
@@ -70,6 +89,10 @@ export function getTableColumns(type: string) {
                 ]
                 : type === "items" || type === "inventory"
                     ? [
+                        {
+                            Header: "Id",
+                            accessor: "id",
+                        },
                         {
                             Header: "Item",
                             accessor: "name",
@@ -99,10 +122,42 @@ export function getTableColumns(type: string) {
                     ];
 }
 
-export function PaginatedTable({columns, data, type, setData}) {
-    // Use the state and functions returned from useTable to build your UI
+export function PaginatedTable({columns, data, type, setDeleteRow}) {
+    const dispatch = useAppDispatch();
+    const [selectedRow, setSelectedRow] = useState("none selected");
+
+    const getSelectedRow = (selectedFlatRow) => {
+        return selectedFlatRow.original.name;
+    };
+
+    const deleteRow = (selectedFlatRows) => {
+        let name = "none selected";
+        let id = String(NaN);
+
+        // if the array is not empty
+        if (selectedFlatRows.length > 0) {
+            // currently does not support multi-select
+            // thus array contains only one  item - index 0
+            id = getSelectedRow(selectedFlatRows[0]);
+            name = getSelectedRow(selectedFlatRows[1]);
+            if (window.confirm("Do you want to delete " + name + "?")) {
+                if (type === "employees") {
+                    dispatch(deleteEmployee(id))
+                } else {
+                    if (type === "activities") {
+                        dispatch(deleteActivity(id));
+                    } else {
+                        if (type === "sales") {
+                            dispatch(deleteSale(id));
+                        }
+                    }
+                }
+            }
+        } else return;
+    };
 
     // console.log("received ", data);
+    // eslint-disable-next-line react/display-name
     const {
         getTableProps,
         getTableBodyProps,
@@ -122,6 +177,7 @@ export function PaginatedTable({columns, data, type, setData}) {
         prepareRow,
         toggleAllRowsSelected,
         selectedFlatRows,
+        state: { selectedRowIds },
     } = useTable(
         {
             columns,
@@ -132,6 +188,24 @@ export function PaginatedTable({columns, data, type, setData}) {
         useSortBy,
         usePagination,
         useRowSelect,
+        (hooks) => {
+            hooks.visibleColumns.push((columns) => {
+                return [
+                    {
+                        id: "selection",
+                        // eslint-disable-next-line react/display-name
+                        Header: ({getToggleAllRowsSelectedProps}) => (
+                            <Checkbox {...getToggleAllRowsSelectedProps()} />
+                        ),
+                        // eslint-disable-next-line react/display-name
+                        Cell: ({row}) => (
+                            <Checkbox {...row.getToggleRowSelectedProps()} />
+                        ),
+                    },
+                    ...columns,
+                ];
+            });
+        }
     );
 
     const {globalFilter, pageIndex, pageSize} = state;
@@ -178,10 +252,6 @@ export function PaginatedTable({columns, data, type, setData}) {
                                     key={i}
                                     {...row.getRowProps()}
                                     className={"tableRow"}
-                                    onContextMenu={(e) => {
-                                        toggleAllRowsSelected(false);
-                                        row.toggleRowSelected(row);
-                                    }}
                                 >
                                     {row.cells.map((cell) => {
                                         return (
@@ -191,6 +261,7 @@ export function PaginatedTable({columns, data, type, setData}) {
                                                 onClick={() => {
                                                     toggleAllRowsSelected(false);
                                                     row.toggleRowSelected(row);
+                                                    setDeleteRow(selectedFlatRows[0]?.values)
                                                 }}
                                             >
                                                 {cell.render("Cell")}

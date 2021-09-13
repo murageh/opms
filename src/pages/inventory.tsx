@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Link from "next/link";
 import Header from "../components/Header";
 import styles from "../styles/Inventory.module.css"
@@ -9,9 +10,12 @@ import {getTableColumns, PaginatedTable} from "../helpers/TableFunctions";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {inventorySelector} from "../features/inventory/selectors";
 import {fetchInventory} from "../features/inventory/actions";
+import {deleteRecord} from "./employees";
+import generatePDF from "../helpers/ReportGenerator";
 
 export default function InventoryHome () {
     const [item, setItem] = useState({});
+    const [deleteRow, setDeleteRow] = useState({});
     const [loading, setLoading] = useState(false);
     const [shouldShowDialog, setShouldShowDialog] = useState(false);
     const type = "inventory";
@@ -60,13 +64,17 @@ export default function InventoryHome () {
                 <div className={styles.top_row}>
                     <h2><Link href={"/"}>Home</Link> • Inventory</h2>
                     <button className={styles.add_button} onClick={editItem}>Add item</button>
+                    <button className={styles.add_button} onClick={() => deleteRecord(type, deleteRow, dispatch)}
+                            disabled={typeof deleteRow?.id === 'undefined'}>Delete item
+                    </button>
+                    <button className={styles.add_button} onClick={() => generatePDF(type, data)}>Export inventory data</button>
                 </div>
                 <div className={styles.inventory_list}>
                     <PaginatedTable
                         columns={columns}
                         type={type}
                         data={data} // table data
-                        setData={setData} // used to update table contents by the date filter
+                        setDeleteRow={setDeleteRow}
                     />
                 </div>
             </div>

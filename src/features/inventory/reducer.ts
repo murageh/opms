@@ -20,6 +20,18 @@ const initialState: CounterState = {
     error_message: "",
 };
 
+export function fetchError () {
+    errorToaster("Could not fetch data. Check backend configuration.");
+}
+
+export function addError () {
+    errorToaster("Could not add data. Check backend configuration.");
+}
+
+export function deleteError () {
+    errorToaster("Could not delete data. Check backend configuration.");
+}
+
 
 export const inventoryReducer = createReducer(initialState, builder => {
     builder
@@ -29,12 +41,12 @@ export const inventoryReducer = createReducer(initialState, builder => {
         .addCase(fetchInventory.fulfilled, (state, {payload}) => {
             state.pending = false;
             console.log("got", payload);
-            state.inventory = payload.data;
+            state.inventory = payload.data ?? state.inventory;
         })
         .addCase(fetchInventory.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+            fetchError();
         })
         //addItem
         .addCase(addItem.pending, state => {
@@ -43,12 +55,12 @@ export const inventoryReducer = createReducer(initialState, builder => {
         .addCase(addItem.fulfilled, (state, {payload}) => {
             state.pending = false;
             successToaster(payload.message);
-            payload.status === "success" && refreshPage();
+            // payload.status === "success" && refreshPage();
         })
         .addCase(addItem.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+            addError();
         })
         //deleteItem
         .addCase(deleteItem.pending, state => {
@@ -63,6 +75,6 @@ export const inventoryReducer = createReducer(initialState, builder => {
         .addCase(deleteItem.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+            deleteError();
         });
 });

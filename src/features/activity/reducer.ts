@@ -2,6 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Activity, addActivity, deleteActivity, fetchActivities} from "./actions";
 import {errorToaster, successToaster} from "../../helpers/Toaster";
 import {refreshPage} from "../../pages";
+import {addError, deleteError, fetchError} from "../inventory/reducer";
 
 type CounterState = {
     count: number,
@@ -28,12 +29,12 @@ export const activityReducer = createReducer(initialState, builder => {
         .addCase(fetchActivities.fulfilled, (state, {payload}) => {
             state.pending = false;
             console.log(payload)
-            state.activities = payload.data;
+            state.activities = payload.data ?? state.activities;
         })
         .addCase(fetchActivities.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+           fetchError();
         })
         //addActivity
         .addCase(addActivity.pending, state => {
@@ -48,7 +49,7 @@ export const activityReducer = createReducer(initialState, builder => {
         .addCase(addActivity.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+           addError();
         })
         //deleteActivity
         .addCase(deleteActivity.pending, state => {
@@ -63,6 +64,6 @@ export const activityReducer = createReducer(initialState, builder => {
         .addCase(deleteActivity.rejected, state => {
             state.pending = false;
             state.error = true;
-            errorToaster(state.error_message);
+            deleteError();
         });
 });

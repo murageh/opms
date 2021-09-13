@@ -1,5 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios";
+import {errorToaster} from "../../helpers/Toaster";
 
 export type Employee = {
     name: string,
@@ -17,22 +18,32 @@ export const addEmployee = createAsyncThunk('employees/addEmployee', async (empl
             salary: employee.salary,
         }
     );
-    return response.data;
+
+    typeof response.data.status === 'undefined' && errorToaster(`An error occurred. ${response}`);
+    return response.data ?? {};
 });
 
 export const fetchEmployees = createAsyncThunk('employees/fetchEmployees', async () => {
     const response = await axios.get('http://127.0.0.1/opms/database/employees.php');
 
-    return response.data;
+    typeof response.data.status === 'undefined' && errorToaster(`An error occurred. ${response}`);
+    return response.data ?? {};
 });
 
-export const deleteEmployee = createAsyncThunk('employees/deleteEmployee', async (id) => {
+export const deleteEmployee = createAsyncThunk('employees/deleteEmployee', async (id: string) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("delete", id);
+
     const response = await axios.post(
         'http://127.0.0.1/opms/database/employees.php',
+        bodyFormData,
         {
-            delete: [id],
+            headers: {
+                "Content-Type": "multipart/form-data; boundary=${data._boundary}",
+            }
         }
     );
 
-    return response.data;
+    typeof response.data.status === 'undefined' && errorToaster(`An error occurred. ${response}`);
+    return response.data ?? {};
 });

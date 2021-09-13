@@ -5,8 +5,8 @@ import styles from '../styles/Home.module.css'
 import React, {useEffect, useState} from "react";
 import Header from "../components/Header";
 import {ProgressLoader} from "../components/global/ProgressLaoder";
-import {fetchEmployees} from "../features/employees";
 import axios from "axios";
+import {errorToaster} from "../helpers/Toaster";
 
 export function refreshPage() {
     window.location.reload();
@@ -17,6 +17,10 @@ type Data = {
     sales: {},
     inventory: {},
     activities: {},
+}
+
+export function showNetworkError(type="data", error){
+    errorToaster(`Could not load ${type}. ${error} Ensure backend is running on port 8080.`);
 }
 
 const Home = () => {
@@ -48,7 +52,9 @@ const Home = () => {
                                     });
                             });
                     });
-            });
+            }).catch((error) => {
+                showNetworkError("data", error);
+        });
 
     }, []);
 

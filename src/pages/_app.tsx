@@ -8,16 +8,16 @@ import React from "react";
 import {ToastContainer} from "react-toastify";
 import '../styles/app.css'
 import '../styles/globals.css'
+import {inspect} from "util";
 
 function MyApp({Component, pageProps}) {
-    const Layout = Component.Layout ? Component.Layout : React.Fragment;
 
     return (
             <Provider store={store}>
-                <Layout>
+                <div className={"app"}>
                     <ToastContainer />
                     <Component {...pageProps} />
-                </Layout>
+                </div>
             </Provider>
     )
 }

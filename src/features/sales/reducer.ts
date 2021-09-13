@@ -1,7 +1,9 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {addSale, fetchSales, Sale} from "./actions";
+import {addSale, deleteSale, fetchSales, Sale} from "./actions";
 import {errorToaster, successToaster} from "../../helpers/Toaster";
 import {refreshPage} from "../../pages";
+import {deleteItem} from "../inventory/actions";
+import {deleteError} from "../inventory/reducer";
 
 
 type CounterState = {
@@ -28,7 +30,7 @@ export const salesReducer = createReducer(initialState, builder => {
         })
         .addCase(fetchSales.fulfilled, (state, {payload}) => {
             state.pending = false;
-            state.sales = payload.data;
+            state.sales = payload.data ?? state.sales;
         })
         .addCase(fetchSales.rejected, state => {
             state.pending = false;
@@ -50,4 +52,19 @@ export const salesReducer = createReducer(initialState, builder => {
             state.error = true;
             errorToaster(state.error_message);
         })
+        //deleteSale
+        .addCase(deleteSale.pending, state => {
+            state.pending = true;
+        })
+        .addCase(deleteSale.fulfilled, (state, {payload}) => {
+            state.pending = false;
+            console.log(payload)
+            successToaster(payload.message);
+            payload.status === "success" && refreshPage();
+        })
+        .addCase(deleteSale.rejected, state => {
+            state.pending = false;
+            state.error = true;
+            deleteError();
+        });
 });

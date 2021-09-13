@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Header from "../components/Header";
 import styles from "../styles/Inventory.module.css"
 import {ToastContainer} from "react-toastify";
@@ -9,9 +10,12 @@ import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {salesSelector} from "../features/sales/selectors";
 import {fetchSales} from "../features/sales/actions";
 import Link from "next/link";
+import {deleteRecord} from "./employees";
+import generatePDF from "../helpers/ReportGenerator";
 
 export default function SalesHome () {
     const [sale, setSale] = useState({});
+    const [deleteRow, setDeleteRow] = useState({});
     const [loading, setLoading] = useState(false);
     const [shouldShowDialog, setShouldShowDialog] = useState(false);
     const type = "sales";
@@ -63,13 +67,17 @@ export default function SalesHome () {
                 <div className={styles.top_row}>
                     <h2><Link href={"/"}>Home</Link> • Sales</h2>
                     <button className={styles.add_button} onClick={editSale}>Add sale</button>
+                    <button className={styles.add_button} onClick={() => deleteRecord(type, deleteRow, dispatch)}
+                            disabled={typeof deleteRow?.id === 'undefined'}>Delete sale
+                    </button>
+                    <button className={styles.add_button} onClick={() => generatePDF(type, data)}>Export sales data</button>
                 </div>
                 <div className={styles.inventory_list}>
                     <PaginatedTable
                         columns={columns}
                         type={type}
                         data={data} // table data
-                        setData={setData} // used to update table contents by the date filter
+                        setDeleteRow={setDeleteRow}
                     />
                 </div>
             </div>

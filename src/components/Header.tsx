@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"
 import styles from "../styles/Inventory.module.css"
 import {useRouter} from "next/router";
 
@@ -7,9 +8,15 @@ const Header  = () => {
 
     return (
         <div className={styles.header}>
-            <h1>OPMS</h1>
-            <h3>Online Poultry Management System</h3>
-            {pathname === "/inventory" ? "" : ""}
+            <div>
+                <h1>OPMS</h1>
+                <h3>Online Poultry Management System</h3>
+                {pathname === "/inventory" ? "" : ""}
+            </div>
+            <div>
+                {pathname !== "/" ? <Link href={"/"}>Back to home</Link> : <h4>Hi, welcome.</h4>}
+            </div>
+
         </div>
     )
 }

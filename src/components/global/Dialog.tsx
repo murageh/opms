@@ -2,12 +2,11 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import TextInput from "./TextInput";
-import {addItem, fetchInventory} from "../../features/inventory/actions";
-import {addSale, fetchSales} from "../../features/sales/actions";
-import {refreshPage} from "../../pages";
-import {addActivity, fetchActivities} from "../../features/activity/actions";
+import {addItem} from "../../features/inventory/actions";
+import {addSale} from "../../features/sales/actions";
+import {addActivity} from "../../features/activity/actions";
 import {errorToaster} from "../../helpers/Toaster";
-import {addEmployee, employeeReducer} from "../../features/employees";
+import {addEmployee} from "../../features/employees";
 
 const Dialog = ({
                     onClose, actionText, title, reRender, type,
@@ -273,13 +272,13 @@ const SaleEditor = ({editSaleField, sale, onSubmit}) => {
             {/*    disabled={true}*/}
             {/*/>*/}
 
-            <TextInput
-                label={"Total discount"}
-                type={"number"}
-                initialValue={sale.total_discount ?? ""}
-                placeholder={"Total discount"}
-                onChange={(e) => editSaleField({total_discount: e.target.value})}
-            />
+            {/*<TextInput*/}
+            {/*    label={"Total discount"}*/}
+            {/*    type={"number"}*/}
+            {/*    initialValue={sale.total_discount ?? ""}*/}
+            {/*    placeholder={"Total discount"}*/}
+            {/*    onChange={(e) => editSaleField({total_discount: e.target.value})}*/}
+            {/*/>*/}
 
             <TextInput
                 label={"Additional details"}

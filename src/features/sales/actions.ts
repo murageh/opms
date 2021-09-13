@@ -1,5 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios";
+import {errorToaster} from "../../helpers/Toaster";
 
 export type Sale = {
     type: string,
@@ -23,11 +24,32 @@ export const addSale = createAsyncThunk('sales/addSale', async (sale: Sale) => {
             additional_details: sale.additional_details ?? "",
         }
     );
-    return response.data;
+
+    typeof response.data.status === 'undefined' && errorToaster(`An error occurred. ${response}`);
+    return response.data ?? {};
 });
 
 export const fetchSales = createAsyncThunk('sales/fetchSales', async () => {
     const response = await axios.get('http://127.0.0.1/opms/database/sales.php');
 
-    return response.data;
+    typeof response.data.status === 'undefined' && errorToaster(`An error occurred. ${response}`);
+    return response.data ?? {};
+});
+
+export const deleteSale = createAsyncThunk('sales/deleteSale', async (id: string) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("delete", id);
+
+    const response = await axios.post(
+        'http://127.0.0.1/opms/database/sales.php',
+        bodyFormData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data; boundary=${data._boundary}",
+            }
+        }
+    );
+
+    typeof response.data.status === 'undefined' && errorToaster(`An error occurred. ${response}`);
+    return response.data ?? {};
 });
