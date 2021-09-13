@@ -14,7 +14,7 @@ const Header  = () => {
                 {pathname === "/inventory" ? "" : ""}
             </div>
             <div>
-                {pathname !== "/" ? <Link href={"/"}>Back to home</Link> : <h4>Hi, welcome.</h4>}
+                {pathname !== "/" ? <Link href={"/"}>Back to home</Link> : <h4>Hi,there. Welcome.</h4>}
             </div>
 
         </div>

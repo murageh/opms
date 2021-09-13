@@ -55,7 +55,7 @@ export const inventoryReducer = createReducer(initialState, builder => {
         .addCase(addItem.fulfilled, (state, {payload}) => {
             state.pending = false;
             successToaster(payload.message);
-            // payload.status === "success" && refreshPage();
+            payload.status === "success" && refreshPage();
         })
         .addCase(addItem.rejected, state => {
             state.pending = false;

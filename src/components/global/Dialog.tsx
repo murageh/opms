@@ -119,21 +119,20 @@ const Dialog = ({
 };
 
 const EmployeeEditor = ({editUserField, user, onSubmit}) => {
-    // let {editCouponField, arrays, setArrays, partners, initialPartner} = props;
 
     return (
         <div className={"editor"}
              onKeyUp={onSubmit}
         >
             <TextInput
-                label={"Name"}
+                label={"Employee name"}
                 initialValue={user.name ?? ""}
-                placeholder={"New name"}
+                placeholder={"Employee name"}
                 onChange={(e) => editUserField({name: e.target.value})}
             />
 
             <TextInput
-                label={"Phone"}
+                label={"Phone number"}
                 placeholder={"Phone number e.g 0712..."}
                 initialValue={user.mobileno ?? ""}
                 onChange={(e) => editUserField({mobileno: e.target.value})}
@@ -157,7 +156,7 @@ const ItemEditor = ({editItemField, item, onSubmit}) => {
              onKeyUp={onSubmit}
         >
             <TextInput
-                label={"Name"}
+                label={"Item name"}
                 initialValue={item.name ?? ""}
                 placeholder={"Item name"}
                 onChange={(e) => editItemField({name: e.target.value})}
@@ -199,14 +198,14 @@ const ActivityEditor = ({editActivityField, activity, onSubmit}) => {
              onKeyUp={onSubmit}
         >
             <TextInput
-                label={"Type"}
+                label={"Type e.g. feeding"}
                 initialValue={activity.type ?? ""}
-                placeholder={"Item type"}
+                placeholder={"Item type e.g. feeding"}
                 onChange={(e) => editActivityField({type: e.target.value})}
             />
 
             <TextInput
-                label={"Date and time"}
+                label={"Date and time performed"}
                 type={"datetime-local"}
                 initialValue={activity.datetime ?? ""}
                 placeholder={"Date and time"}
@@ -242,7 +241,7 @@ const SaleEditor = ({editSaleField, sale, onSubmit}) => {
             <TextInput
                 label={"Sale Type"}
                 initialValue={sale.type ?? ""}
-                placeholder={"Type of sale e.g. eggs"}
+                placeholder={"Type of sale e.g. eggs, hens"}
                 onChange={(e) => editSaleField({type: e.target.value})}
             />
 

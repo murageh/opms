@@ -113,6 +113,20 @@
   margin-left: 0.5rem;
 }
 
+.p_after {
+  text-align: center;
+  padding: 0 20px;
+  line-height: 1.5;
+  max-width: 60%;
+}
+
+.main code {
+  background: var(--main-color-light);
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

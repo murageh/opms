@@ -19,7 +19,7 @@ type Data = {
     activities: {},
 }
 
-export function showNetworkError(type="data", error){
+export function showNetworkError(type = "data", error) {
     errorToaster(`Could not load ${type}. ${error} Ensure backend is running on port 8080.`);
 }
 
@@ -53,7 +53,7 @@ const Home = () => {
                             });
                     });
             }).catch((error) => {
-                showNetworkError("data", error);
+            showNetworkError("data", error);
         });
 
     }, []);
@@ -61,9 +61,10 @@ const Home = () => {
     return (
         <>
             <div className={styles.container}>
-                <Header />
+                <Header/>
                 <div className={styles.main}>
                     {loading ? <ProgressLoader message={"Just a sec..."}/> : <></>}
+
                     <div className={styles.grid}>
                         <div className={styles.card}>
                             <h4>Inventory</h4>
@@ -90,6 +91,11 @@ const Home = () => {
                             <Link href={"/activities"}>View activities</Link>
                         </div>
                     </div>
+                    <p className={styles.p_after}>Choose an item to view the details.</p>
+                    <p className={styles.p_after}>
+                        You can export the details from each module. e.g. to obtain the list of employees, head to the
+                        employees page and click on <code>Export Employee data</code>
+                    </p>
                 </div>
             </div>
         </>
