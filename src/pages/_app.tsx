@@ -8,7 +8,6 @@ import React from "react";
 import {ToastContainer} from "react-toastify";
 import '../styles/app.css'
 import '../styles/globals.css'
-import {inspect} from "util";
 
 function MyApp({Component, pageProps}) {
 

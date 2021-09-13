@@ -2,7 +2,6 @@ import {createReducer} from '@reduxjs/toolkit';
 import {addSale, deleteSale, fetchSales, Sale} from "./actions";
 import {errorToaster, successToaster} from "../../helpers/Toaster";
 import {refreshPage} from "../../pages";
-import {deleteItem} from "../inventory/actions";
 import {deleteError} from "../inventory/reducer";
 
 

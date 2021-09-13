@@ -5,11 +5,10 @@ import {useAppDispatch} from "../app/hooks";
 import {useState} from "react";
 import {deleteEmployee} from "../features/employees";
 import {deleteActivity} from "../features/activity/actions";
-import {deleteItem} from "../features/inventory/actions";
 import {deleteSale} from "../features/sales/actions";
 import {Checkbox} from "../components/global/CheckBox";
 
-export function getTableColumns(type: string) {
+export function getTableColumns(type: string, displayImage = (sale) => {}) {
     return type === "employees"
         ? [
             {
@@ -62,6 +61,14 @@ export function getTableColumns(type: string) {
                 {
                     Header: "Date",
                     accessor: "date",
+                },
+                {
+                    Header: "Attachment",
+                    accessor: (sale) => {
+                        return sale.attachment !== null ?
+                            <button onClick={() => displayImage(sale)}>View image</button>
+                            : "None"
+                    },
                 },
             ]
             : type === "activities"
@@ -122,7 +129,7 @@ export function getTableColumns(type: string) {
                     ];
 }
 
-export function PaginatedTable({columns, data, type, setDeleteRow}) {
+export function PaginatedTable({columns, data, type, setDeleteRow, }) {
     const dispatch = useAppDispatch();
     const [selectedRow, setSelectedRow] = useState("none selected");
 

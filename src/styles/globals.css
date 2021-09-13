@@ -251,9 +251,21 @@ tbody {
 }
 
 .diag-special {
-  max-width: 60%;
-  width: 60%;
+  max-width: 80%;
+  width: 80%;
   max-height: 85%;
+}
+
+.dialog-body{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.dialog-body img {
+  width: 80%;
+  padding: 10px;
+  margin: auto;
 }
 
 .editor {

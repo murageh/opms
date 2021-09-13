@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {addEmployee, deleteEmployee, Employee, fetchEmployees} from "./actions";
-import {errorToaster, successToaster} from "../../helpers/Toaster";
+import {successToaster} from "../../helpers/Toaster";
 import {refreshPage} from "../../pages";
 import {addError, deleteError, fetchError} from "../inventory/reducer";
 

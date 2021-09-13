@@ -12,14 +12,16 @@ import {fetchSales} from "../features/sales/actions";
 import Link from "next/link";
 import {deleteRecord} from "./employees";
 import generatePDF from "../helpers/ReportGenerator";
+import ImageViewer from "../components/global/ImageViewer";
 
 export default function SalesHome () {
     const [sale, setSale] = useState({});
     const [deleteRow, setDeleteRow] = useState({});
+    const [showingImage, setShowingImage] = useState({});
     const [loading, setLoading] = useState(false);
     const [shouldShowDialog, setShouldShowDialog] = useState(false);
+    const [shouldShowImage, setShouldShowImage] = useState(false);
     const type = "sales";
-    const columns = getTableColumns(type);
     const dispatch = useAppDispatch();
     const [data, setData] = useState([]);
     const {
@@ -36,14 +38,20 @@ export default function SalesHome () {
         setData(sales);
     }, [sales]);
 
-    console.log("sales", sales);
-    console.log("data", data);
-
     const editSale = () => {
         setShouldShowDialog(true);
     }
 
     const onClose = () => setShouldShowDialog(false);
+
+    const closeImageView = () => setShouldShowImage(false);
+
+    const displaySaleImage = (sale) => {
+        setShowingImage(sale);
+        setShouldShowImage(true);
+    }
+
+    const columns = getTableColumns(type, displaySaleImage);
 
     return (
         <>
@@ -60,6 +68,14 @@ export default function SalesHome () {
                         }}
                         initialItem={sale}
                         setLoading={setLoading}
+                    />
+                    : <></>
+                }
+                {shouldShowImage ?
+                    <ImageViewer
+                        title={`${showingImage.type}`}
+                        onClose={closeImageView}
+                        imagePath={showingImage.attachment}
                     />
                     : <></>}
                 <ToastContainer/>

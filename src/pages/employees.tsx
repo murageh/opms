@@ -12,7 +12,6 @@ import Link from "next/link";
 import {deleteActivity} from "../features/activity/actions";
 import {deleteItem} from "../features/inventory/actions";
 import {deleteSale} from "../features/sales/actions";
-import {log} from "util";
 import generatePDF from "../helpers/ReportGenerator";
 
 export const deleteRecord = (type, row, dispatch) => {

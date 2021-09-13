@@ -12,7 +12,7 @@ const Dialog = ({
                     onClose, actionText, title, reRender, type,
                     initialEmployee = {}, initialActivity = {},
                     initialItem = {}, initialSale = {},
-                    setLoading
+                    setLoading, refresh, setRefresh
                 }) => {
     const [employee, setEmployee] = useState(initialEmployee);
     const [activity, setActivity] = useState(initialActivity);
@@ -45,7 +45,7 @@ const Dialog = ({
         if (type === "inventory" || type === "items"){
             dispatch(addItem(item));
         }else if (type === "sale" || type === "sales"){
-            dispatch(addSale(sale));
+            dispatch(addSale(sale, refresh, setRefresh));
         }else if (type === "activity" || type === "activities"){
             dispatch(addActivity(activity));
         }else if (type === "employee" || type === "employees"){
@@ -262,24 +262,6 @@ const SaleEditor = ({editSaleField, sale, onSubmit}) => {
                 onChange={(e) => editSaleField({unit_price: e.target.value})}
             />
 
-            {/*<TextInput*/}
-            {/*    label={"Total price"}*/}
-            {/*    type={"number"}*/}
-            {/*    initialValue={0}*/}
-            {/*    value={parseInt(sale.unit_price) * parseInt(sale.quantity)}*/}
-            {/*    placeholder={"Total price"}*/}
-            {/*    onChange={(e) => editSaleField({total_price: e.target.value})}*/}
-            {/*    disabled={true}*/}
-            {/*/>*/}
-
-            {/*<TextInput*/}
-            {/*    label={"Total discount"}*/}
-            {/*    type={"number"}*/}
-            {/*    initialValue={sale.total_discount ?? ""}*/}
-            {/*    placeholder={"Total discount"}*/}
-            {/*    onChange={(e) => editSaleField({total_discount: e.target.value})}*/}
-            {/*/>*/}
-
             <TextInput
                 label={"Additional details"}
                 type={"text"}
@@ -287,6 +269,19 @@ const SaleEditor = ({editSaleField, sale, onSubmit}) => {
                 placeholder={"Additional details"}
                 onChange={(e) => editSaleField({additional_details: e.target.value})}
             />
+
+            <div className={"input-row"}>
+                <label>{"Attachment"}</label>
+                <input
+                    type="file"
+                    id="attachment"
+                    name="attachment"
+                    accept="image/*"
+                    onChange={(e) =>
+                        editSaleField({ attachment: e.target.files[0] })
+                    }
+                />
+            </div>
 
         </div>
     );
